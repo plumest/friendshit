@@ -6,10 +6,7 @@ import bcrypt from 'bcrypt';
 const Schema = mongoose.Schema;
 
 const bookSchema = new Schema({
-
-//    book_id: {
-//    },
-    User: {
+    user: {
         type: 'String',
         required: true,
         trim: true,
@@ -22,9 +19,13 @@ const bookSchema = new Schema({
         unique: true
     },
     notes: [{
-        type: 'String',
-        unique: true
-    }],
+        note: {
+            type: 'String',
+            required: true,
+            trim: true,
+            unique: true
+        }
+    }]
 });
 
 const bookModel = mongoose.model('Book', bookSchema);
