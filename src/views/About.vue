@@ -452,7 +452,14 @@ export default {
     loadSave(item) {
       this.history = item.history.slice();
       this.draw_pad.redraw();
-    }
+    },
+    sendPaths() {
+      this.$store.dispatch("fetchPaths");
+    },
+    deletePaths(index, _id) {
+      let payload = { index: index, _id: _id };
+      this.$store.dispatch("deletePaths", payload);
+    },
   },
   mounted() {
     this.draw_pad = new Draw(this)
