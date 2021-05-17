@@ -1,12 +1,16 @@
-import config from '../config.js'
 import mongoose from 'mongoose';
-import bcrypt from 'bcrypt';
+import { v4 as uuidv4 } from 'uuid';
 
 // schema maps to a collection
 const Schema = mongoose.Schema;
 
 const bookSchema = new Schema({
-    user: {
+    _id: {
+        type: String,
+        required: true,
+        default: () => uuidv4()
+    },
+    owner: {
         type: 'String',
         required: true,
         trim: true,
