@@ -42,6 +42,21 @@ const add = (req, res) => {
     );
 }
 
+const getAll = (req, res) => {
+    mongoose.connect(connUri,
+        { useNewUrlParser: true, useUnifiedTopology: true },
+        () => {
+            User.find({}, (err, users) => {
+                if (!err) {
+                    res.send(users);
+                } else {
+                    console.log('Error', err);
+                }
+            });
+        }
+    );
+}
+
 const login = (req, res) => {
     const { name, password } = req.body;
 
@@ -92,4 +107,4 @@ const login = (req, res) => {
     );
 }
 
-export default { add, login };
+export default { add, login, getAll };
