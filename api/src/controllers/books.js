@@ -1,27 +1,28 @@
-import config from '../config.js'
-import mongoose from 'mongoose';
 import Book from '../models/books.js';
 
 const create = (req, res) => {
     let result = {};
     let status = 201;
 
-    const { owner, name } = req.body;
+    const { name } = req.body;
+    const owner = req.params.user_id;
     const notes = [];
     const book = new Book({ owner, name, notes });
 
-    book.save()
-        .then(book => {
-            result.status = status;
-            result.result = book;
-        }).catch(err => {
-        console.log(err)
-        status = 500
-        result.status = 500;
-        result.error = err;
-    }).finally(() => {
-        res.status(status).send(result);
-    });
+    Book.findById(owner).then(() => {
+        book.save()
+            .then(book => {
+                result.status = status;
+                result.result = book;
+            }).catch(err => {
+            console.log(err)
+            status = 500
+            result.status = 500;
+            result.error = err;
+        }).finally(() => {
+            res.status(status).send(result);
+        });
+    }).catch(err => console.log(err))
 }
 
 const getOneBook = (req, res) => {
