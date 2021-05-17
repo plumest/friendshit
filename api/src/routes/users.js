@@ -1,6 +1,7 @@
 import controller from '../controllers/users.js';
 import validateToken from '../utils.js'
 
+
 import Router from 'express';
 
 const router = Router();

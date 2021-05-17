@@ -9,6 +9,9 @@ import bodyParser from "body-parser";
 import routes from './routes/index.js';
 import rateLimit from 'express-rate-limit';
 
+import csurf from 'csurf';
+import cookieParser from 'cookie-parser';
+
 let app = express();
 
 async function startServer() {
@@ -22,13 +25,19 @@ async function startServer() {
     app.use(bodyParser.urlencoded({extended: true}));
     app.use('/api/v1', routes.users);
 
-
     const limiter = rateLimit({
         windowMs: 15 * 60 * 1000, // 15 minutes
         max: 100 // limit each IP to 100 requests per windowMs
     });
 
     app.use(limiter);
+
+    const csrfMiddleware = csurf({
+        cookie: true
+    });
+
+    app.use(cookieParser());
+    app.use(csrfMiddleware);
 
     mongoose.connect(config.connUri, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
         .catch(error => console.log(error));
