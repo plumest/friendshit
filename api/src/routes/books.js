@@ -1,6 +1,6 @@
 import controller from '../controllers/books.js';
 
-const { Router } = require('express');
+import Router from 'express';
 
 const router = Router();
 

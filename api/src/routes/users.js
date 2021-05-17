@@ -1,7 +1,7 @@
 import controller from '../controllers/users.js';
 import validateToken from '../utils.js'
 
-const { Router } = require('express');
+import Router from 'express';
 
 const router = Router();
 
