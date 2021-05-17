@@ -19,8 +19,7 @@
   "scripts": {
     "build": "npm-run-all clean transpile",
     "server": "node ./dist",
-    "dev": "cross-env NODE_ENV=development nodemon src/index.js",
-    "dev2": "NODE_ENV=development npm-run-all build server",
+    "dev": "cross-env NODE_ENV=development npm-run-all build server",
     "transpile": "babel ./src --out-dir dist",
     "clean": "rimraf dist"
   },
