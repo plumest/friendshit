@@ -351,112 +351,111 @@ class Draw {
 
 
 export default {
-  data() {
-    return {
-      history: [],
-      color: '#13c5f7',
-      popups: {
-        showColor: false,
-        showSize: false,
-        showWelcome: true,
-        showSave: false,
-        showOptions: false
-      },
-      options: {
-        restrictY: false,
-        restrictX: false
-      },
-      save: {
-        name: '',
-        saveItems: []
-      },
-      size: 12,
-      colors: [
-        '#d4f713',
-        '#13f7ab',
-        '#13f3f7',
-        '#13c5f7',
-        '#138cf7',
-        '#1353f7',
-        '#2d13f7',
-        '#7513f7',
-        '#a713f7',
-        '#d413f7',
-        '#f713e0',
-        '#f71397',
-        '#f7135b',
-        '#f71313',
-        '#f76213',
-        '#f79413',
-        '#f7e013'],
-      sizes: [6, 12, 24, 48],
-      weights: [ 2, 4, 6 ]
-  }
-  },
+  data() { return {
+    history: [],
+    color: '#13c5f7',
+    popups: {
+      showColor: false,
+      showSize: false,
+      showWelcome: true,
+      showSave: false,
+      showOptions: false
+    },
+    options: {
+      restrictY: false,
+      restrictX: false
+    },
+    save: {
+      name: '',
+      saveItems: []
+    },
+    size: 12,
+    colors: [
+      '#d4f713',
+      '#13f7ab',
+      '#13f3f7',
+      '#13c5f7',
+      '#138cf7',
+      '#1353f7',
+      '#2d13f7',
+      '#7513f7',
+      '#a713f7',
+      '#d413f7',
+      '#f713e0',
+      '#f71397',
+      '#f7135b',
+      '#f71313',
+      '#f76213',
+      '#f79413',
+      '#f7e013'],
+    sizes: [6, 12, 24, 48],
+    weights: [ 2, 4, 6 ],
+    draw_pad: '',
+  } },
   methods: {
-    removeHistoryItem: () => {
-      this.history.splice(this.history.length - 2, 1);
+    removeHistoryItem() {
+      this.history.splice(this.history.length-2, 1);
       this.draw_pad.redraw();
     },
-    removeAllHistory: () => {
+    removeAllHistory() {
       this.history = [];
       this.draw_pad.redraw();
     },
-    simplify: () => {
-      const simpleHistory = [];
-      this.history.forEach((item, i) => {
-        if (i % 6 !== 1 || item.isDummy) {
+    simplify() {
+      var simpleHistory = [];
+      this.history.forEach((item, i)=>{
+        if(i % 6 !== 1 || item.isDummy){
           simpleHistory.push(item);
         }
       });
       this.history = simpleHistory;
       this.draw_pad.redraw();
     },
-    jumble: () => {
-      // var simpleHistory = [];
-      this.history.forEach((item, i) => {
+    jumble() {
+      this.history.forEach((item, i)=>{
         item.r += Math.sin(i * 20) * 5;
       });
-      this.history = this.app.shuffle(this.history);
+      this.history = this.shuffle(this.history);
       this.draw_pad.redraw();
     },
-    shuffle: (a) => {
+    shuffle(a){
       var b = [];
 
-      a.forEach((item) => {
-        if (!item.isDummy) {
+      a.forEach((item)=>{
+        if(!item.isDummy){
           var l = b.length;
           var r = Math.floor(l * Math.random());
           b.splice(r, 0, item);
         }
       });
 
-      for (const i = 0; i < b.length; i++) {
-        if (i % 20 === 1) {
+      for(var i = 0; i < b.length; i++){
+        if(i % 20 === 1){
           b.push(this.draw_pad.getDummyItem());
         }
       }
 
       return b;
     },
-    saveItem: () => {
-      if (this.save.name.length > 2) {
+    saveItem(){
+      if(this.save.name.length > 2){
         var historyItem = {
           history: this.history.slice(),
           name: this.save.name
         };
 
         this.save.saveItems.push(historyItem);
+        console.log(this.save.saveItems)
         this.save.name = "";
       }
     },
-    loadSave: (item) => {
+    loadSave(item) {
       this.history = item.history.slice();
       this.draw_pad.redraw();
     }
   },
   mounted() {
-    this.draw_pad = new Draw(this);
+    this.draw_pad = new Draw(this)
   }
 }
 </script>
