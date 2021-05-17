@@ -57,26 +57,26 @@ const updateBookPage = (req, res) => {
     Book.findOne({id}, {owner}, (err, book) => {
         if (!err && book) {
             book.update({$push: {notes : {note: note}}});
-            result.status = status;
-            result.result = book;
+            book.save()
+                .then(book => {
+                    result.status = status;
+                    result.result = book;
+                    res.status(status).send(result);
+                }).catch(err => {
+                console.log(err)
+                status = 500
+                result.status = 500;
+                result.error = err;
+                res.status(status).send(result);
+            })
         } else {
             status = 404;
             result.status = status;
             result.error = "Book not found"
+            res.status(status).send(result);
         }
-        res.status(status).send(result);
-        book.save()
-        .then(book => {
-            result.status = status;
-            result.result = book;
-        }).catch(err => {
-        console.log(err)
-        status = 500
-        result.status = 500;
-        result.error = err;
-    }).finally(() => {
-        res.status(status).send(result);
-    });
+
+
 })
 }
 

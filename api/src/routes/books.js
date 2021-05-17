@@ -16,10 +16,11 @@ router.get('/:user_id/books', (req, res) => {
 
 // Annon with link
 router.get('/books/:bookId', (req, res) => {
-
+    controller.getOneBook(req, res)
 });
 
 router.put('/books/:bookId', (req, res) => {
+    controller.updateBookPage(req, res)
 });
 
 export default router;
