@@ -1,4 +1,4 @@
-# friendshit
+# hello-world
 
 ## Project setup
 ```
