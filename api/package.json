@@ -1,7 +1,6 @@
 {
   "name": "api",
   "version": "1.0.0",
-  "type": "module",
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
@@ -14,14 +13,25 @@
     "helmet": "^4.6.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.4",
+    "npm-run-all": "^4.1.5",
     "uuid": "^8.3.2"
   },
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon index.js"
+    "build": "npm-run-all clean transpile",
+    "server": "node ./dist",
+    "dev": "cross-env NODE_ENV=development nodemon src/index.js",
+    "dev2": "NODE_ENV=development npm-run-all build server",
+    "transpile": "babel ./src --out-dir dist",
+    "clean": "rimraf dist"
   },
   "devDependencies": {
+    "@babel/cli": "^7.13.16",
+    "@babel/core": "^7.14.2",
+    "@babel/preset-env": "^7.14.2",
+    "babel-plugin-add-import-extension": "^1.5.1",
     "cross-env": "^7.0.3",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "rimraf": "^3.0.2"
   }
 }
