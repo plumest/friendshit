@@ -1,5 +1,6 @@
 import config from './config.js'
 import cors from 'cors';
+import helmet from "helmet";
 import logger from 'morgan';
 import express from 'express';
 import mongoose from 'mongoose';
@@ -9,6 +10,7 @@ import bodyParser from "body-parser";
 const app = express();
 
 app.use(cors());
+app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
