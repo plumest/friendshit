@@ -3,8 +3,10 @@ import mongoose from 'mongoose';
 import User from '../models/users.js';
 
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 const connUri = config.connUri;
+const jwtSecret = config.jwtSecret;
 
 const add = (req, res) => {
     mongoose.connect(connUri,
@@ -54,6 +56,11 @@ const login = (req, res) => {
                         // We could compare passwords in our model instead of below
                         bcrypt.compare(password, user.password).then(match => {
                             if (match) {
+                                // Create a token
+                                const payload = { user: user.name };
+                                const options = { expiresIn: '1d', issuer: 'https://scotch.io' };
+
+                                result.token = jwt.sign(payload, jwtSecret, options);
                                 result.status = status;
                                 result.result = user;
                             } else {
