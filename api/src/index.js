@@ -11,6 +11,7 @@ import rateLimit from 'express-rate-limit';
 
 import csurf from 'csurf';
 import cookieParser from 'cookie-parser';
+import mongoSanitize from 'express-mongo-sanitize';
 
 let app = express();
 
@@ -31,6 +32,7 @@ async function startServer() {
     });
 
     app.use(limiter);
+    app.use(mongoSanitize());
 
     const csrfMiddleware = csurf({
         cookie: true

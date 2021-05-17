@@ -12,6 +12,7 @@
     "csurf": "^1.11.0",
     "dotenv": "^9.0.2",
     "express": "^4.17.1",
+    "express-mongo-sanitize": "^2.1.0",
     "express-rate-limit": "^5.2.6",
     "helmet": "^4.6.0",
     "jsonwebtoken": "^8.5.1",
