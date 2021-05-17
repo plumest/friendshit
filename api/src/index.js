@@ -1,10 +1,10 @@
-import config from './config.js'
-import cors from 'cors';
+import config from "./config.js";
+import cors from "cors";
 import helmet from "helmet";
-import logger from 'morgan';
-import express from 'express';
-import mongoose from 'mongoose';
-const load = require('loaders/index')
+import logger from "morgan";
+import express from "express";
+import mongoose from "mongoose";
+import load from "./loaders";
 import bodyParser from "body-parser";
 import routes from './routes/index.js';
 import rateLimit from 'express-rate-limit';
@@ -43,8 +43,3 @@ async function startServer() {
 }
 
 startServer();
-
-
-
-
-
