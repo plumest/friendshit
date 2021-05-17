@@ -18,14 +18,12 @@ const bookSchema = new Schema({
         trim: true,
         unique: true
     },
-    notes: [{
-        note: {
-            type: 'String',
-            required: true,
-            trim: true,
-            unique: true
-        }
-    }]
+    notes: {
+        type: [String],
+        required: true,
+        trim: true,
+        unique: true
+    }
 });
 
 const bookModel = mongoose.model('Book', bookSchema);
