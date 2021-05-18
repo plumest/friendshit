@@ -1,6 +1,5 @@
 .DS_Store
 node_modules
-/dist
 
 
 # local env files
@@ -24,3 +23,4 @@ pnpm-debug.log*
 
 # API
 api/node_modules
+api/.env
