@@ -1,12 +1,18 @@
-# Friendshit (Frontend)
-Vue.js frontend
+# Friendshit (Backend)
+
+Vanilla Express.js backend
+
 ### Configuration
 Please create `.env` file before running.
+See `.env.default` for example.
+
 These are environment variables required.
 
-|Name|Default value|
-|---|---|
-|`VUE_APP_API_URL`|http://localhost:8090/api/v1/|
+|Name|Description|Default value|
+|---|---|---|
+|`LOG_LEVEL`|The log level used by **winston**|`silly`|
+|`PORT`|The exposed port by the server|`8090`|
+|`MONGO_LOCAL_CONN_URL`|The MongoDB database connection string|prefixed by `mongodb+srv://` or  `mongodb://`|
 
 ## Project setup
 ```
