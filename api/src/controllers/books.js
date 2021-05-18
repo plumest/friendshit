@@ -12,12 +12,12 @@ const create = async (req, res) => {
     const book = new Book({owner, name});
     await book.save()
         result.result = book
-            res.status(result.status).send(result);
+        res.status(result.status).send(result);
     }
     catch (err) {
-        logging.error(err.message)
         result.status = 500;
-        result.error = err;
+        result.error = err.message;
+        res.status(result.status).send(result);
     }
 }
 
