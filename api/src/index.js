@@ -1,8 +1,5 @@
 import config from "./config";
-import cors from "cors";
-import helmet from "helmet";
 import express from "express";
-import mongoose from "mongoose";
 import load from "./loaders";
 import bodyParser from "body-parser";
 import routes from './routes/index.js';
@@ -23,7 +20,7 @@ async function startServer() {
     }
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended: true}));
-    app.use('/api/v1', routes.users);
+    app.use('/api/v1', routes);
 
     const limiter = rateLimit({
         windowMs: 15 * 60 * 1000, // 15 minutes

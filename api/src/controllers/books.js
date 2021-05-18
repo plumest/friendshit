@@ -26,12 +26,13 @@ const create = (req, res) => {
 }
 
 const getOneBook = (req, res) => {
-    const {id , owner} = req.body;
+    let owner
+    const bookId = req.params.bookId
 
     let result = {};
     let status = 200;
 
-    Book.findOne({id}, {owner}, (err, book) => {
+    Book.findOne({_id: bookId }, (err, book) => {
          if (!err && book) {
              result.status = status;
              result.result = book;
@@ -52,12 +53,19 @@ const getOneBook = (req, res) => {
 const updateBookPage = (req, res) => {
     let result = {};
     let status = 201;
-
-    const { owner, name, id ,note } = req.body;
-
-    Book.findOne({id}, {owner}, (err, book) => {
+    // {note: [paths]}
+    const { paths } = req.body;
+    const bookId = req.params.bookId;
+    Book.findOne({ _id: bookId }, async (err, book) => {
         if (!err && book) {
-            book.update({$push: {notes : {note: note}}});
+            if (!book.pathHistory) {
+                book.pathHistory = [];
+                await book.save();
+            }
+            console.log(paths)
+            await book.update({
+                $push:
+                    {pathHistory : paths}});
             book.save()
                 .then(book => {
                     result.status = status;

@@ -6,6 +6,10 @@ import { auth } from './auth.module';
 
 const API_PATH = process.env.VUE_APP_API_URL;
 
+const webClientInstance = Axios.create({
+  baseURL: API_PATH
+});
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -21,13 +25,22 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    async fetchPaths({ commit }) {
-      await Axios.get(API_PATH)
-          .then(res => commit("fetchPaths", { res }))
-          .catch(err => alert(err));
+    async fetchPaths(_, { bookId }) {
+      try {
+        const { data } = await webClientInstance.get(`/books/${bookId}`)
+        console.log(data)
+        const { result: {pathHistory} } = data
+      //  commit("fetchPaths", {data})
+        return pathHistory[pathHistory.length - 1]
+      } catch(err) {
+        alert(err)
+      }
     },
     async addPaths({ commit }, payload) {
-      await Axios.post(API_PATH, payload)
+      const { bookId, paths } = payload
+      await webClientInstance.put(`/books/${bookId}`, {
+        paths
+      })
           .then(() => commit("addPaths", { payload }))
           .catch(err => alert(err));
     },
