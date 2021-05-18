@@ -1,6 +1,8 @@
 # Friendshit (Frontend)
 Vue.js frontend
 
+by The Order of Jedi Mahatad
+
 ### Team Members
 |Name|Role|Student ID|
 |---|---|---|
