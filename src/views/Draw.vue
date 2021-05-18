@@ -82,7 +82,7 @@
                 <input type="radio" name="size" v-model="size" v-bind:value="sizeItem">
                 <span class="size"
                       v-bind:style="{width: sizeItem + 'px', height: sizeItem + 'px'}"
-                      v-on:click="popups.showSize = !popups.showSize"></span>
+                      v-on:click="changeBrushSize(sizeItem)"></span>
               </label>
             </div>
           </div>
@@ -108,7 +108,7 @@
                        v-bind:value="colorItem">
                 <span v-bind:class="'color color-' + colorItem"
                       v-bind:style="{backgroundColor: colorItem}"
-                      v-on:click="popups.showColor = !popups.showColor"></span>
+                      v-on:click="changeColor(colorItem)"></span>
               </label>
             </div>
           </div>
@@ -471,7 +471,15 @@ export default {
     },
     createBook() {
       this.$router.push({ path: '/books/create' })
-    }
+    },
+    changeColor(color) {
+      this.popups.showColor = !this.popups.showColor
+      this.color = color
+    },
+    changeBrushSize(size) {
+      this.popups.showSize = !this.popups.showSize
+      this.size = size
+    },
   },
   computed: {
     bookId() {
