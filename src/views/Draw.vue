@@ -1,7 +1,9 @@
 <template>
   <div class="about">
     <h1>This is a book {{ bookId }}</h1>
-    <b-button size="small" variant="outline-light" @click="loadSave('u')"><i class="ion ion-link"></i></b-button>
+    <b-button size="small" variant="outline-light"><i class="ion ion-link"></i></b-button>
+    <b-button size="small" variant="outline-light" @click="loadSave('u')">Load </b-button>
+    <b-button size="small" variant="outline-light" @click="saveToCloud()">Save </b-button>
     <div id="draw">
       <div class="app-wrapper">
         <canvas id="canvas">
@@ -437,6 +439,15 @@ export default {
 
       return b;
     },
+    saveToCloud() {
+      this.$store.dispatch('addPaths', {
+        bookId: this.bookId,
+        paths: {
+          history: this.history.slice(),
+          name: this.save.name
+        }
+      })
+    },
     saveItem(){
       if(this.save.name.length > 2){
         var historyItem = {
@@ -445,10 +456,6 @@ export default {
         };
 
         this.save.saveItems.push(historyItem);
-        this.$store.dispatch('addPaths', {
-          bookId: this.bookId,
-          paths: historyItem
-        })
         console.log(this.save.saveItems)
         this.save.name = "";
       }
@@ -641,22 +648,6 @@ canvas:active + .cursor {
   opacity: 0;
   animation: fade-up 1s forwards cubic-bezier(0.2, 2, 0.4, 1);
 }
-.btn {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 10px 20px;
-  font-weight: 400;
-  font-size: 16px;
-  border-radius: 4px;
-  background-color: #0095ff;
-  color: white;
-  animation-delay: 1s;
-  transition: all 0.15s;
-  cursor: pointer;
-}
-.btn:hover {
-  background-color: #3af;
-}
 .welcome {
   width: 400px;
   height: 400px;
@@ -715,7 +706,7 @@ canvas:active + .cursor {
   width: 100%;
   margin-bottom: 4px;
 }
-button {
+#draw button {
   appearance: none;
   border: 0;
   border-radius: 0;
