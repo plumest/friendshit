@@ -1,8 +1,7 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
+const { Boolean, Number } = Schema.Types
 
-// schema maps to a collection
-const Schema = mongoose.Schema;
 
 const bookSchema = new Schema({
     _id: {
@@ -22,13 +21,33 @@ const bookSchema = new Schema({
         trim: true,
         unique: true
     },
-    notes: [{
-        note: {
+    pathHistory: [{
+        name: {
             type: 'String',
             required: true,
             trim: true,
             unique: true
-        }
+        },
+        history: [
+            {
+                c: {
+                    type: 'String'
+                },
+                r: {
+                    type: Number
+                },
+                x: {
+                    type: Number
+                },
+                y: {
+                    type: Number
+                },
+                isDummy: {
+                    type: Boolean,
+                    default: false
+                }
+            }
+        ]
     }]
 });
 

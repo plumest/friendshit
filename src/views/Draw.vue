@@ -1,26 +1,8 @@
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <h1>This is a book {{ bookId }}</h1>
+    <b-button size="small" variant="outline-light" @click="loadSave('u')"><i class="ion ion-link"></i></b-button>
     <div id="draw">
-      <div class="welcome-bg" v-if="popups.showWelcome">
-        <div class="welcome">
-          <h1 class="fade-up">Vue JS draw</h1>
-          <h2 class="fade-up">
-            By Lewi Hussey
-          </h2>
-          <a href="//twitter.com/lewitje" target="blank" title="Lewi Hussey on Twitter" class="fade-up">@lewitje</a>
-          <span class="btn fade-up"
-                title="Close"
-                v-on:click="popups.showWelcome = false">
-                Lets go
-            </span>
-          <span class="btn fade-up"
-                title="Close"
-                v-on:click="createBook">
-            Create Your Book
-          </span>
-        </div>
-      </div>
       <div class="app-wrapper">
         <canvas id="canvas">
         </canvas>
@@ -463,13 +445,22 @@ export default {
         };
 
         this.save.saveItems.push(historyItem);
+        this.$store.dispatch('addPaths', {
+          bookId: this.bookId,
+          paths: historyItem
+        })
         console.log(this.save.saveItems)
         this.save.name = "";
       }
     },
-    loadSave(item) {
-      this.history = item.history.slice();
+    async loadSave(item) {
+      const history = await this.$store.dispatch("fetchPaths", {bookId: this.bookId });
+      this.history = history.history //item.history.slice();
+      console.log(item)
+      console.log('lol')
+      console.log(history)
       this.draw_pad.redraw();
+
     },
     sendPaths() {
       this.$store.dispatch("fetchPaths");
@@ -480,6 +471,11 @@ export default {
     },
     createBook() {
       this.$router.push({ path: '/books/create' })
+    }
+  },
+  computed: {
+    bookId() {
+      return this.$route.params.id
     }
   },
   mounted() {

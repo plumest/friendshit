@@ -31,7 +31,7 @@ const getOneBook = (req, res) => {
     let result = {};
     let status = 200;
 
-    Book.findOne({ bookId }, (err, book) => {
+    Book.findOne({_id: bookId }, (err, book) => {
          if (!err && book) {
              result.status = status;
              result.result = book;
@@ -84,7 +84,14 @@ const updateBookPage = (req, res) => {
 
     Book.findOne({ bookId }, (err, book) => {
         if (!err && book) {
-            book.update({$push: {notes : {note: note}}});
+            if (!book.pathHistory) {
+                book.pathHistory = [];
+                await book.save();
+            }
+            console.log(paths)
+            await book.update({
+                $push:
+                    {pathHistory : paths}});
             book.save()
                 .then(book => {
                     result.status = status;
