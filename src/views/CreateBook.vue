@@ -6,7 +6,7 @@
           <label for="name">Book name</label>
           <input
               v-model="book.name"
-              v-validate="'required'"
+              v-validate="'required|min:3|max:20'"
               type="text"
               class="form-control"
               name="name"
