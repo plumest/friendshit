@@ -20,7 +20,7 @@ async function startServer() {
     }
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended: true}));
-    app.use('/api/v1', routes.users, routes.books);
+    app.use('/api/v1', routes);
 
     const limiter = rateLimit({
         windowMs: 15 * 60 * 1000, // 15 minutes

@@ -79,10 +79,10 @@ const updateBookPage = (req, res) => {
     let result = {};
     let status = 201;
 
-    const { note } = req.body;
+    const { paths } = req.body;
     const bookId = req.params.bookId;
 
-    Book.findOne({ bookId }, (err, book) => {
+    Book.findOne({ bookId }, async (err, book) => {
         if (!err && book) {
             if (!book.pathHistory) {
                 book.pathHistory = [];
