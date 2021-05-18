@@ -262,8 +262,11 @@ class Draw {
   }
 
   moveMouse(e){
+    let element = document.getElementById('canvas');
+    let top = element.getBoundingClientRect().top
+
     let x = e.offsetX;
-    let y = e.offsetY;
+    let y = e.offsetY + top;
 
     var cursor = document.getElementById('cursor');
 
@@ -322,8 +325,6 @@ class Draw {
     this.ctx.lineJoin="round";
 
     var prevItem = this.app.history[i-2];
-    let element = document.getElementById('canvas');
-    let top = element.getBoundingClientRect().top
 
     if(i < 2){
       return false;
@@ -334,8 +335,8 @@ class Draw {
       this.ctx.lineWidth = item.r;
 
       this.ctx.beginPath();
-      this.ctx.moveTo(prevItem.x, prevItem.y - top);
-      this.ctx.lineTo(item.x, item.y - top);
+      this.ctx.moveTo(prevItem.x, prevItem.y);
+      this.ctx.lineTo(item.x, item.y);
       this.ctx.stroke();
       this.ctx.closePath();
     } else if (!item.isDummy) {
@@ -343,8 +344,8 @@ class Draw {
       this.ctx.lineWidth = item.r;
 
       this.ctx.beginPath();
-      this.ctx.moveTo(item.x, item.y - top);
-      this.ctx.lineTo(item.x, item.y - top);
+      this.ctx.moveTo(item.x, item.y);
+      this.ctx.lineTo(item.x, item.y);
       this.ctx.stroke();
       this.ctx.closePath();
     }
