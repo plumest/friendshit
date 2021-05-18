@@ -5,8 +5,8 @@ import bodyParser from "body-parser";
 import routes from './routes/index.js';
 import rateLimit from 'express-rate-limit';
 
-import csurf from 'csurf';
-import cookieParser from 'cookie-parser';
+// import csurf from 'csurf';
+// import cookieParser from 'cookie-parser';
 import mongoSanitize from 'express-mongo-sanitize';
 
 let app = express();
@@ -20,7 +20,7 @@ async function startServer() {
     }
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended: true}));
-    app.use('/api/v1', routes);
+    app.use('/api/v1', routes.users, routes.books);
 
     const limiter = rateLimit({
         windowMs: 15 * 60 * 1000, // 15 minutes
@@ -30,12 +30,12 @@ async function startServer() {
     app.use(limiter);
     app.use(mongoSanitize());
 
-    const csrfMiddleware = csurf({
-        cookie: true
-    });
+    // const csrfMiddleware = csurf({
+    //     cookie: true
+    // });
 
-    app.use(cookieParser());
-    app.use(csrfMiddleware);
+    // app.use(cookieParser());
+    // app.use(csrfMiddleware);
 
     // mongoose.connect(config.connUri, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
     //     .catch(error => console.log(error));

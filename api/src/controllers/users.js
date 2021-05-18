@@ -75,8 +75,8 @@ const login = (req, res) => {
             bcrypt.compare(password, user.password).then(match => {
                 if (match) {
                     // Create a token
-                    const payload = { user: user.name };
-                    const options = { expiresIn: '1d', issuer: 'https://scotch.io' };
+                    const payload = { user: user.name, _id: user._id };
+                    const options = { expiresIn: '1d' };
 
                     result.token = jwt.sign(payload, jwtSecret, options);
                     result.status = status;

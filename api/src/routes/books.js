@@ -10,7 +10,7 @@ router.post('/:user_id/books', (req, res) => {
 });
 
 router.get('/:user_id/books', (req, res) => {
-    controller.getOneBook(req, res);
+    controller.getManyBook(req, res);
 });
 
 

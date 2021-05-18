@@ -261,15 +261,25 @@ class Draw {
   }
 
   getDummyItem(){
-    var lastPoint = this.app.history[this.app.history.length-1];
+    if (!this.app.history) {
+      let lastPoint = this.app.history[this.app.history.length-1];
 
-    return {
-      isDummy: true,
-      x: lastPoint.x,
-      y: lastPoint.y,
-      c: null,
-      r: null
-    };
+      return {
+        isDummy: true,
+        x: lastPoint.x,
+        y: lastPoint.y,
+        c: null,
+        r: null
+      };
+    } else {
+      return {
+        isDummy: true,
+        x: 0,
+        y: 0,
+        c: null,
+        r: null
+      };
+    }
   }
 
   setDummyPoint(){
@@ -459,6 +469,9 @@ export default {
       let payload = { index: index, _id: _id };
       this.$store.dispatch("deletePaths", payload);
     },
+    createBook() {
+      this.$router.push({ path: '/books/create' })
+    }
   },
   computed: {
     bookId() {
@@ -686,7 +699,7 @@ canvas:active + .cursor {
   display: block;
   appearance: none;
   border: 0;
-  box-shadow: 0;
+  box-shadow: none;
   outline: 0;
   background-color: #f0f0f0;
   border-radius: 4px;
@@ -698,7 +711,7 @@ button {
   appearance: none;
   border: 0;
   border-radius: 0;
-  box-shadow: 0;
+  box-shadow: none;
   width: 40px;
   height: 60px;
   display: inline-block;
