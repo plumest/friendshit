@@ -15,6 +15,9 @@
     name: 'Home',
     components: {
       Navbar
+    },
+    mounted() {
+      window.csrfToken = document.querySelector('meta[name="csrf-token"]').content;
     }
   }
 </script>

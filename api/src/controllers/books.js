@@ -26,12 +26,12 @@ const create = (req, res) => {
 }
 
 const getOneBook = (req, res) => {
-    const {id , owner} = req.body;
+    const bookId = req.params.bookId;
 
     let result = {};
     let status = 200;
 
-    Book.findOne({id}, {owner}, (err, book) => {
+    Book.findOne({ bookId }, (err, book) => {
          if (!err && book) {
              result.status = status;
              result.result = book;
@@ -49,13 +49,40 @@ const getOneBook = (req, res) => {
     });
 }
 
+const getManyBook = (req, res) => {
+    const owner = req.params.user_id;
+
+    let result = {};
+    let status = 200;
+
+    console.log("owner = ", owner)
+    Book.find({owner: owner}, (err, book) => {
+        if (!err && book) {
+            console.log("book = ", book)
+            result.status = status;
+            result.result = book;
+        } else {
+            status = 404;
+            result.status = status;
+            result.error = "Book not found"
+        }
+        res.status(status).send(result);
+    }).catch(err => {
+        status = 500;
+        result.status = status;
+        result.error = err;
+        res.status(status).send(result);
+    });
+}
+
 const updateBookPage = (req, res) => {
     let result = {};
     let status = 201;
 
-    const { owner, name, id ,note } = req.body;
+    const { note } = req.body;
+    const bookId = req.params.bookId;
 
-    Book.findOne({id}, {owner}, (err, book) => {
+    Book.findOne({ bookId }, (err, book) => {
         if (!err && book) {
             book.update({$push: {notes : {note: note}}});
             book.save()
@@ -81,4 +108,4 @@ const updateBookPage = (req, res) => {
 })
 }
 
-export default { create, getOneBook, updateBookPage };
+export default { create, getOneBook, getManyBook, updateBookPage };

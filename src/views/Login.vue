@@ -14,7 +14,7 @@
               v-validate="'required'"
               type="text"
               class="form-control"
-              name="username"
+              name="name"
           />
           <div
               v-if="errors.has('username')"

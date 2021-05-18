@@ -15,7 +15,7 @@
                 v-validate="'required|min:3|max:20'"
                 type="text"
                 class="form-control"
-                name="username"
+                name="name"
             />
             <div
                 v-if="submitted && errors.has('username')"
