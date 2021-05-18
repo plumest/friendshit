@@ -2,7 +2,9 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Axios from "axios"
 
-const API_PATH = "http://localhost:8000/api/paths/";
+import { auth } from './auth.module';
+
+const API_PATH = "http://localhost:8090/api/v1/";
 
 Vue.use(Vuex)
 
@@ -31,5 +33,6 @@ export default new Vuex.Store({
     },
   },
   modules: {
+    auth
   }
 })
