@@ -28,10 +28,18 @@ export default new Vuex.Store({
     async fetchPaths(_, { bookId }) {
       try {
         const { data } = await webClientInstance.get(`/books/${bookId}`)
-        console.log(data)
         const { result: {pathHistory} } = data
       //  commit("fetchPaths", {data})
         return pathHistory[pathHistory.length - 1]
+      } catch(err) {
+        alert(err)
+      }
+    },
+    async fetchSingleBook(_, { bookId }) {
+      try {
+        const { data } = await webClientInstance.get(`/books/${bookId}`)
+        const { result } = data
+        return result
       } catch(err) {
         alert(err)
       }

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = `http://localhost:8090/api/v1/`;
+const API_URL = process.env.VUE_APP_API_URL;
 
 const parseJwt = (token) => {
     try {
@@ -30,7 +30,7 @@ class BookService {
 
         let data = await axios.get(API_URL + `${user_id}/books`);
 
-        return data.data
+        return data.data.result
     }
 }
 

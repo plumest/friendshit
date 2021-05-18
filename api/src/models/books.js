@@ -6,14 +6,12 @@ const { Boolean, Number } = Schema.Types
 const bookSchema = new Schema({
     _id: {
         type: String,
-        required: true,
         default: () => uuidv4()
     },
     owner: {
         type: 'String',
         required: true,
-        trim: true,
-        unique: true
+        trim: true
     },
     name: {
         type: 'String',
@@ -25,8 +23,7 @@ const bookSchema = new Schema({
         name: {
             type: 'String',
             required: true,
-            trim: true,
-            unique: true
+            trim: true
         },
         history: [
             {

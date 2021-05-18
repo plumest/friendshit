@@ -1,28 +1,24 @@
 import Book from '../models/books.js';
 
-const create = (req, res) => {
-    let result = {};
-    let status = 201;
+const logging = require("$logging").getLogger(__filename);
 
+const create = async (req, res) => {
+    let result = {
+        status: 201
+    };
+    try {
     const { name } = req.body;
     const owner = req.params.user_id;
-    const notes = [];
-    const book = new Book({ owner, name, notes });
-
-    Book.findById(owner).then(() => {
-        book.save()
-            .then(book => {
-                result.status = status;
-                result.result = book;
-            }).catch(err => {
-            console.log(err)
-            status = 500
-            result.status = 500;
-            result.error = err;
-        }).finally(() => {
-            res.status(status).send(result);
-        });
-    }).catch(err => console.log(err))
+    const book = new Book({owner, name});
+    await book.save()
+        result.result = book
+            res.status(result.status).send(result);
+    }
+    catch (err) {
+        logging.error(err.message)
+        result.status = 500;
+        result.error = err;
+    }
 }
 
 const getOneBook = (req, res) => {
@@ -55,10 +51,10 @@ const getManyBook = (req, res) => {
     let result = {};
     let status = 200;
 
-    console.log("owner = ", owner)
+    logging.debug("owner = ", owner)
     Book.find({owner: owner}, (err, book) => {
         if (!err && book) {
-            console.log("book = ", book)
+            logging.debug("book = ", book)
             result.status = status;
             result.result = book;
         } else {
@@ -82,13 +78,12 @@ const updateBookPage = (req, res) => {
     const { paths } = req.body;
     const bookId = req.params.bookId;
 
-    Book.findOne({ bookId }, async (err, book) => {
+    Book.findOne({ _id: bookId }, async (err, book) => {
         if (!err && book) {
             if (!book.pathHistory) {
                 book.pathHistory = [];
                 await book.save();
             }
-            console.log(paths)
             await book.update({
                 $push:
                     {pathHistory : paths}});
@@ -98,7 +93,7 @@ const updateBookPage = (req, res) => {
                     result.result = book;
                     res.status(status).send(result);
                 }).catch(err => {
-                console.log(err)
+                logging.error(err.message)
                 status = 500
                 result.status = 500;
                 result.error = err;
@@ -107,7 +102,7 @@ const updateBookPage = (req, res) => {
         } else {
             status = 404;
             result.status = status;
-            result.error = "Book not found"
+            result.error = "Book not found for updating"
             res.status(status).send(result);
         }
 

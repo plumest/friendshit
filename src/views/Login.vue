@@ -70,7 +70,7 @@ export default {
   },
   created() {
     if (this.loggedIn) {
-      this.$router.push('/about');
+      this.$router.push('/books');
     }
   },
   methods: {
@@ -85,7 +85,7 @@ export default {
         if (this.user.name && this.user.password) {
           this.$store.dispatch('auth/login', this.user).then(
               () => {
-                this.$router.push('/about');
+                this.$router.push('/books');
               },
               error => {
                 this.loading = false;

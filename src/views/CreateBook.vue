@@ -37,8 +37,9 @@ export default {
     };
   },
   methods: {
-    handleCreateBook() {
-      BookService.createBook(this.book);
+    async handleCreateBook() {
+      await BookService.createBook(this.book);
+      await this.$router.push('/books')
     }
   }
 }

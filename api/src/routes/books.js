@@ -5,8 +5,8 @@ import Router from 'express';
 const router = Router();
 
 // User
-router.post('/:user_id/books', (req, res) => {
-    controller.create(req, res);
+router.post('/:user_id/books', async (req, res) => {
+    await controller.create(req, res);
 });
 
 router.get('/:user_id/books', (req, res) => {

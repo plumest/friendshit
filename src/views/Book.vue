@@ -1,9 +1,9 @@
 <template>
   <div class="about">
-    <h1>This is a book {{ bookId }}</h1>
-    <b-button size="small" variant="outline-light"><i class="ion ion-link"></i></b-button>
-    <b-button size="small" variant="outline-light" @click="loadSave('u')">Load </b-button>
-    <b-button size="small" variant="outline-light" @click="saveToCloud()">Save </b-button>
+    <h1>This is a book "{{ save.name }}"</h1>
+    <b-button size="small" variant="outline-primary"><i class="ion ion-link"></i></b-button>
+    <b-button size="small" variant="outline-primary" @click="loadSave('u')">Load </b-button>
+    <b-button size="small" variant="outline-primary" @click="saveToCloud()">Save </b-button>
     <div id="draw">
       <div class="app-wrapper">
         <canvas id="canvas">
@@ -456,18 +456,14 @@ export default {
         };
 
         this.save.saveItems.push(historyItem);
-        console.log(this.save.saveItems)
         this.save.name = "";
       }
     },
     async loadSave(item) {
       const history = await this.$store.dispatch("fetchPaths", {bookId: this.bookId });
       this.history = history.history //item.history.slice();
-      console.log(item)
-      console.log('lol')
-      console.log(history)
       this.draw_pad.redraw();
-
+      console.log(item)
     },
     sendPaths() {
       this.$store.dispatch("fetchPaths");
@@ -478,6 +474,12 @@ export default {
     },
     createBook() {
       this.$router.push({ path: '/books/create' })
+    },
+    async fetchData() {
+      const {name, pathHistory} = await this.$store.dispatch("fetchSingleBook", {bookId: this.bookId })
+      this.save.name = name
+      this.history = pathHistory[pathHistory.length-1].history
+      this.draw_pad.redraw();
     }
   },
   computed: {
@@ -487,6 +489,9 @@ export default {
   },
   mounted() {
     this.draw_pad = new Draw(this)
+  },
+  async created() {
+    await this.fetchData()
   }
 }
 </script>
