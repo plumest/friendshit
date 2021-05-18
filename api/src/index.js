@@ -1,7 +1,6 @@
-import config from "./config.js";
+import config from "./config";
 import cors from "cors";
 import helmet from "helmet";
-import logger from "morgan";
 import express from "express";
 import mongoose from "mongoose";
 import load from "./loaders";
@@ -15,13 +14,13 @@ import mongoSanitize from 'express-mongo-sanitize';
 
 let app = express();
 
+const logging = require("$logging").getLogger(__filename);
+
 async function startServer() {
-    app = await load()
+    app = await load(config)
     if (config.environment !== 'production') {
-        app.use(logger('dev'));
+        // app.use(logger('dev'));
     }
-    app.use(cors());
-    app.use(helmet());
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended: true}));
     app.use('/api/v1', routes.users);
@@ -41,14 +40,12 @@ async function startServer() {
     app.use(cookieParser());
     app.use(csrfMiddleware);
 
-    mongoose.connect(config.connUri, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
-        .catch(error => console.log(error));
+    // mongoose.connect(config.connUri, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
+    //     .catch(error => console.log(error));
 
     if (config.environment !== 'production') {
-        app.use(logger('dev'));
-
         app.listen(config.port, () => {
-            console.log(`Server is running on ${config.baseUrl}:${config.port}/`);
+            logging.info(`[HTTP/1.1] Shitty Server has started on ${config.baseUrl}:${config.port}`);
         });
     }
 }

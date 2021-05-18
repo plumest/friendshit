@@ -1,6 +1,6 @@
-# hello-world
+# Friendshit (Frontend)
 
-## Configuration
+### Configuration
 Please create `.env` file before running.
 These are environment variables required.
 
