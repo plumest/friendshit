@@ -4,6 +4,7 @@ import Login from "../views/Login";
 import Home from '../views/Home.vue'
 import Register from "../views/Register";
 import CreateBook from "../views/CreateBook";
+import AllBook from "../views/AllBook";
 
 Vue.use(VueRouter)
 
@@ -24,6 +25,10 @@ const routes = [
   {
     path: '/books/create',
     component: CreateBook
+  },
+  {
+    path: '/books',
+    component: AllBook
   },
   {
     path: '/about',

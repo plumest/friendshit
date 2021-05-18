@@ -26,7 +26,7 @@
             <label for="password">Password</label>
             <input
                 v-model="user.password"
-                v-validate="validate"
+                v-validate="'required|min:12|max:128'"
                 type="password"
                 class="form-control"
                 name="password"
@@ -61,8 +61,7 @@ export default {
       user: new User('', ''),
       submitted: false,
       successful: false,
-      message: '',
-      validate: "required|min:12|max:128|regex:^(?:(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[^A-Za-z0-9])(?=.*[a-z])|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))(?!.*(.)\\1{2,})[A-Za-z0-9!~<>,;:_=?*+#.\"&§%°()\\|\\[\\]\\-\\$\\^\\@\\/]{12,128}$"
+      message: ''
     };
   },
   computed: {

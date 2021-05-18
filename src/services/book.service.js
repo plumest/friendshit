@@ -15,7 +15,6 @@ class BookService {
         let user = JSON.parse(localStorage.getItem('user'));
         let user_id = parseJwt(user.token);
         user_id = user_id._id;
-        console.log(user_id)
 
         return axios
             .post(API_URL + `${user_id}/books`, {
@@ -24,21 +23,14 @@ class BookService {
             });
     }
 
-    getAllBookByUser(book) {
-        let user = localStorage.getItem('user');
+    async getAllBookByUser() {
+        let user = JSON.parse(localStorage.getItem('user'));
         let user_id = parseJwt(user.token);
+        user_id = user_id._id;
 
-        return axios
-            .get(API_URL + `${user_id}/books`, {
-                name: book.name
-            });
-    }
+        let data = await axios.get(API_URL + `${user_id}/books`);
 
-    register(user) {
-        return axios.post(API_URL + 'users', {
-            name: user.name,
-            password: user.password
-        });
+        return data.data
     }
 }
 
