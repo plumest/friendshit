@@ -4,7 +4,7 @@ import Axios from "axios"
 
 import { auth } from './auth.module';
 
-const API_PATH = "http://localhost:8090/api/v1/";
+const API_PATH = process.env.VUE_APP_API_URL;
 
 Vue.use(Vuex)
 

@@ -8,7 +8,8 @@ const config = {
     port: process.env.PORT || 3000,
     saltingRounds: 12,
     connUri: process.env.MONGO_LOCAL_CONN_URL,
-    jwtSecret: process.env.JWT_SECRET || 'secret'
+    jwtSecret: process.env.JWT_SECRET || 'secret',
+    logLevel: process.env.LOG_LEVEL || 'silly'
 }
 
 export default config
