@@ -22,7 +22,6 @@ const bookSchema = new Schema({
     pathHistory: [{
         name: {
             type: 'String',
-            required: true,
             trim: true
         },
         history: [
