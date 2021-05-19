@@ -7,8 +7,7 @@ const validateToken = (req, res, next) => {
     if (authorizationHeaader) {
         const token = req.headers.authorization.split(' ')[1]; // Bearer <token>
         const options = {
-            expiresIn: '1d',
-            issuer: 'https://scotch.io'
+            expiresIn: '1d'
         };
         try {
             // verify makes sure that the token hasn't expired and has been issued by us
