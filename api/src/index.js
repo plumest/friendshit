@@ -4,10 +4,8 @@ import load from "./loaders";
 import bodyParser from "body-parser";
 import routes from './routes/index.js';
 import rateLimit from 'express-rate-limit';
-
-// import csurf from 'csurf';
-// import cookieParser from 'cookie-parser';
 import mongoSanitize from 'express-mongo-sanitize';
+import router from "./routes/index.js";
 
 let app = express();
 
@@ -29,16 +27,6 @@ async function startServer() {
 
     app.use(limiter);
     app.use(mongoSanitize());
-
-    // const csrfMiddleware = csurf({
-    //     cookie: true
-    // });
-
-    // app.use(cookieParser());
-    // app.use(csrfMiddleware);
-
-    // mongoose.connect(config.connUri, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
-    //     .catch(error => console.log(error));
 
     if (config.environment !== 'production') {
         app.listen(config.port, () => {

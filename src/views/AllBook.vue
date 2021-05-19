@@ -28,7 +28,6 @@ export default {
   },
   async mounted() {
     this.books = await BookService.getAllBookByUser()
-    console.log(this.books)
   }
 }
 </script>

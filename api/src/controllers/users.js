@@ -63,43 +63,46 @@ const getAll = (req, res) => {
     }
 }
 
-const login = (req, res) => {
+const login = async (req, res) => {
     const { name, password } = req.body;
 
     let result = {};
     let status = 200;
+try {
+    const user = await User.findOne({name})
+    if (user) {
+        // We could compare passwords in our model instead of below
+        try {
+            const match = await bcrypt.compare(password, user.password)
+            if (match) {
+                // Create a token
+                const payload = {user: user.name, _id: user._id};
+                const options = {expiresIn: '1d'};
 
-    User.findOne({name}, (err, user) => {
-        if (!err && user) {
-            // We could compare passwords in our model instead of below
-            bcrypt.compare(password, user.password).then(match => {
-                if (match) {
-                    // Create a token
-                    const payload = { user: user.name, _id: user._id };
-                    const options = { expiresIn: '1d' };
-
-                    result.token = jwt.sign(payload, jwtSecret, options);
-                    result.status = status;
-                    result.result = user;
-                } else {
-                    status = 401;
-                    result.status = status;
-                    result.error = 'Authentication error';
-                }
-                res.status(status).send(result);
-            }).catch(err => {
-                status = 500;
+                result.token = jwt.sign(payload, jwtSecret, options);
                 result.status = status;
-                result.error = err;
-                res.status(status).send(result);
-            });
-        } else {
-            status = 404;
-            result.status = status;
-            result.error = err;
+                result.result = { name: user.name, _id: user._id };
+            } else {
+                status = 401;
+                result.status = status;
+                result.error = 'Authentication error';
+            }
             res.status(status).send(result);
         }
-    });
+        catch(err) {
+            status = 500;
+            result.status = status;
+            result.error = err.message;
+            res.status(status).send(result);
+        }
+    } else throw new Error("User not found")
+}
+catch (err) {
+    status = 404;
+    result.status = status;
+    result.error = err.message;
+    res.status(status).send(result);
+}
 }
 
 export default { add, login, getAll };

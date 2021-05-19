@@ -1,19 +1,23 @@
 import axios from 'axios';
+import {webClientInstance} from "./axios-create";
 
 const API_URL = process.env.VUE_APP_API_URL;
 
 class AuthService {
     login(user) {
-        return axios
-            .post(API_URL + 'login', {
+        return webClientInstance
+            .post('/login', {
                 name: user.name,
                 password: user.password
+            }, {
+                withCredentials: true
             })
             .then(response => {
-                if (response.data.token) {
-                    localStorage.setItem('user', JSON.stringify(response.data));
+                const data = {token: response.data.token, ...response.data.result}
+                if (data.token) {
+                    localStorage.setItem('user', JSON.stringify(data));
                 }
-                return response.data;
+                return data;
             });
     }
 

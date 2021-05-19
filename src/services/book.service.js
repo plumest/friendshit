@@ -1,6 +1,5 @@
-import axios from 'axios';
+import {webClientInstance} from "./axios-create";
 
-const API_URL = process.env.VUE_APP_API_URL;
 
 const parseJwt = (token) => {
     try {
@@ -16,10 +15,9 @@ class BookService {
         let user_id = parseJwt(user.token);
         user_id = user_id._id;
 
-        return axios
-            .post(API_URL + `${user_id}/books`, {
-                name: book.name,
-                // _token: csrfToken
+        return webClientInstance
+            .post(`${user_id}/books`, {
+                name: book.name
             });
     }
 
@@ -27,9 +25,7 @@ class BookService {
         let user = JSON.parse(localStorage.getItem('user'));
         let user_id = parseJwt(user.token);
         user_id = user_id._id;
-
-        let data = await axios.get(API_URL + `${user_id}/books`);
-
+        let data = await webClientInstance.get(`${user_id}/books`);
         return data.data.result
     }
 }

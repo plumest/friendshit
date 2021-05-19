@@ -7,15 +7,16 @@ const router = Router();
 const userRouter = Router();
 
 // User
-userRouter.post('/:user_id/books', async (req, res) => {
+userRouter.post('/:user_id/books', authenticateJwt,async (req, res) => {
     await controller.create(req, res);
 });
 
-userRouter.get('/:user_id/books', (req, res) => {
+userRouter.get('/:user_id/books', authenticateJwt,(req, res) => {
     controller.getManyBook(req, res);
 });
 
-router.use(authenticateJwt, userRouter)
+
+router.use(userRouter)
 // Annon with link
 router.get('/books/:bookId', (req, res) => {
     controller.getOneBook(req, res)

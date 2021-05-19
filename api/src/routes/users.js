@@ -15,6 +15,7 @@ router.post('/users', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
+    console.log(req.headers)
     controller.login(req, res)
 });
 

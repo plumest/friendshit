@@ -1,14 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import Axios from "axios"
 
 import { auth } from './auth.module';
-
-const API_PATH = process.env.VUE_APP_API_URL;
-
-const webClientInstance = Axios.create({
-  baseURL: API_PATH
-});
+import {webClientInstance} from "../services/axios-create";
 
 Vue.use(Vuex)
 

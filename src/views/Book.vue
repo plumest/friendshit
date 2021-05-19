@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <h1>This is a book "{{ save.name }}"</h1>
+    <h1>The book "{{ save.name }}"</h1>
     <b-button size="small" variant="outline-primary"><i class="ion ion-link"></i></b-button>
     <b-button size="small" variant="outline-primary" @click="loadSave('u')">Load </b-button>
     <b-button size="small" variant="outline-primary" @click="saveToCloud()">Save </b-button>
