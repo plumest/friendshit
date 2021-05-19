@@ -8,9 +8,7 @@ const jwtSecret = config.jwtSecret;
 
 const re = RegExp("^(?:(?=.*\\d)(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[^A-Za-z0-9])(?=.*[a-z])|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*\\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))(?!.*(.)\\1{2,})[A-Za-z0-9!~<>,;:_=?*+#.\"&§%°()\\|\\[\\]\\-\\$\\^\\@\\/]{12,128}$");
 
-const logging = require("$logging").getLogger(__filename);
-
-const add = async (req, res) => {
+const add = async (req, res, next) => {
     let result = {};
     let status = 201;
 
@@ -23,19 +21,14 @@ const add = async (req, res) => {
         result.error = `12 to 128 character password requiring at least 3 out 4 (uppercase and lowercase letters, numbers and special characters) and no more than 2 equal characters in a row`;
         res.status(status).send(result);
     } else {
-        await user.save()
         try {
+            await user.save()
             result.status = status;
             result.result = user;
+            res.status(status).send(result);
         }
         catch (err) {
-            logging.error(err)
-            status = 500
-            result.status = 500;
-            result.error = err.message;
-        }
-        finally {
-            res.status(status).send(result);
+            next(err)
         }
     }
 }

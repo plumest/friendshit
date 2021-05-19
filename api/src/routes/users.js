@@ -10,8 +10,8 @@ router.get('/users', validateToken, (req, res) => {
     controller.getAll(req, res)
 });
 
-router.post('/users', (req, res) => {
-    controller.add(req, res)
+router.post('/users', async (req, res, next) => {
+    await controller.add(req, res, next)
 });
 
 router.post('/login', async (req, res) => {
