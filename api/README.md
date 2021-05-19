@@ -18,21 +18,14 @@ These are environment variables required.
 ```
 yarn install
 ```
+You can then run your project with the command `npm run dev` in development enviroment
 
 ### Compiles and hot-reloads for development
 ```
-yarn serve
+yarn dev
 ```
 
 ### Compiles and minifies for production
 ```
 yarn build
 ```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
