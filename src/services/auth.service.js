@@ -26,6 +26,13 @@ class AuthService {
         return webClientInstance.post('/users', {
             name: user.name,
             password: user.password
+        }).then(response => {
+            console.log(response)
+            const data = {token: response.data.token, ...response.data.result}
+            if (data.token) {
+                localStorage.setItem('user', JSON.stringify(data));
+            }
+            return response;
         });
     }
 }

@@ -71,7 +71,7 @@ export default {
   },
   mounted() {
     if (this.loggedIn) {
-      this.$router.push('/about');
+      this.$router.push('/books');
     }
   },
   methods: {
@@ -84,6 +84,7 @@ export default {
               data => {
                 this.message = data.message;
                 this.successful = true;
+                this.$router.push('/books');
               },
               error => {
                 console.log(error)

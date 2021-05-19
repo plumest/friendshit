@@ -25,6 +25,11 @@ const add = async (req, res) => {
     } else {
         await user.save()
         try {
+            // Create a token
+            const payload = {user: name, _id: user._id};
+            const options = {expiresIn: '1d'};
+
+            result.token = jwt.sign(payload, jwtSecret, options);
             result.status = status;
             result.result = user;
         }
