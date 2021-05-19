@@ -14,9 +14,8 @@ router.post('/users', (req, res) => {
     controller.add(req, res)
 });
 
-router.post('/login', (req, res) => {
-    console.log(req.headers)
-    controller.login(req, res)
+router.post('/login', async (req, res) => {
+    await controller.login(req, res)
 });
 
 export default router;
