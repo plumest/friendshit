@@ -161,9 +161,26 @@
           </div>
 
           <div class="btn-row">
-            <button v-on:click="popups.showWelcome = true" title="Made by Lewi">
-              <i class="ion ion-heart"></i>
+            <button title="Save"
+                    v-on:click="popups.showLink = !popups.showLink">
+              <i class="ion ion-share-outline"></i>
             </button>
+
+            <div class="popup" v-if="popups.showLink">
+              <div class="popup-title">
+                Share your book
+              </div>
+              <div class="form">
+                <input type="text"
+                       id="shareLink"
+                       placeholder="Share your book"
+                       v-model="shareLink"
+                       class="disabled"
+                      disabled>
+                <button @click="getBookLink()">Copy</button>
+              </div>
+
+            </div>
           </div>
         </div>
       </div>
@@ -358,7 +375,7 @@ export default {
     popups: {
       showColor: false,
       showSize: false,
-      showWelcome: true,
+      showLink: false,
       showSave: false,
       showOptions: false
     },
@@ -370,6 +387,7 @@ export default {
       name: '',
       saveItems: []
     },
+    shareLink: "",
     size: 12,
     colors: [
       '#d4f713',
@@ -488,6 +506,17 @@ export default {
       this.popups.showSize = !this.popups.showSize
       this.size = size
     },
+    getBookLink() {
+      this.shareLink = window.location.origin + this.$route.path
+      let shareLink = document.getElementById("shareLink");
+
+      /* Select the text field */
+      shareLink.select();
+      shareLink.setSelectionRange(0, 99999); /* For mobile devices */
+
+      /* Copy the text inside the text field */
+      document.execCommand("copy");
+    }
   },
   computed: {
     bookId() {
