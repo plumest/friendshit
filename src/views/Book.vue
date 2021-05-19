@@ -1,9 +1,9 @@
 <template>
   <div class="about">
     <h1>The book "{{ save.name }}"</h1>
-    <b-button size="small" variant="outline-primary" @click="loadSave('u')">Load </b-button>
-    <b-button size="small" variant="outline-primary" @click="saveToCloud()">Save </b-button>
-    <div id="draw">
+    <b-button size="small" variant="outline-primary" @click="loadSave('u')">Refresh </b-button>
+    <b-button class="ml-1" size="small" variant="outline-primary" @click="saveToCloud()">Save </b-button>
+    <div id="draw" class="mt-1">
       <div class="app-wrapper">
         <canvas id="canvas">
         </canvas>
@@ -602,10 +602,10 @@ canvas:active + .cursor {
   margin-bottom: 10px;
 }
 .popup button {
-  height: 80px;
-  width: 80px;
-  text-align: center;
-  font-size: 14px;
+  height: 80px !important;
+  width: 80px !important;
+  text-align: center !important;
+  font-size: 14px !important;
   color: rgba(0, 0, 0, .4);
 }
 .popup button i {
