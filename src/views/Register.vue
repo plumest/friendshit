@@ -87,7 +87,6 @@ export default {
                 this.$router.push('/books');
               },
               error => {
-                console.log(error)
                 this.message =
                     (error.response && error.response.data) ||
                     error.message ||
