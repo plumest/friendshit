@@ -13,4 +13,4 @@ async function connectMongoDB(config) {
 }
 
 
-module.exports = connectMongoDB;
+export default connectMongoDB;

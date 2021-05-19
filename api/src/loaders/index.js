@@ -1,9 +1,8 @@
 import WinstonLoader from './winston'
+import MongooseLoader from "./mongoose";
+import ExpressLoader from "./express";
 
-const ExpressLoader = require("./express");
-const MongooseLoader = require("./mongoose");
-
-module.exports = async (config) => {
+export default async (config) => {
     const app = await ExpressLoader(config);
     await WinstonLoader(app, config);
     await MongooseLoader(config);
