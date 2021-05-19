@@ -9,7 +9,7 @@ const helmet = require("helmet");
 const path = require("path");
 const appRootPath = require("app-root-path");
 
-module.exports = async (config) => {
+export default async (config) => {
     const csrfMiddleware = csurf({ cookie: true });
     const app = express();
 
