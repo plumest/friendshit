@@ -1,7 +1,4 @@
-import axios from 'axios';
 import {webClientInstance} from "./axios-create";
-
-const API_URL = process.env.VUE_APP_API_URL;
 
 class AuthService {
     login(user) {
@@ -26,7 +23,7 @@ class AuthService {
     }
 
     register(user) {
-        return axios.post(API_URL + 'users', {
+        return webClientInstance.post('/users', {
             name: user.name,
             password: user.password
         });

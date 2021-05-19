@@ -5,7 +5,6 @@ import bodyParser from "body-parser";
 import routes from './routes/index.js';
 import rateLimit from 'express-rate-limit';
 import mongoSanitize from 'express-mongo-sanitize';
-import router from "./routes/index.js";
 
 let app = express();
 
