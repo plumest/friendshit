@@ -18,7 +18,7 @@ These are environment variables required.
 ```
 yarn install
 ```
-You can then run your project with the command `npm run dev` in development enviroment
+You can then run your project with the command `npm run dev` in development environment
 
 ### Compiles and hot-reloads for development
 ```
