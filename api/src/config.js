@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 dotenv.config()
 
 const config = {
-    whitelistUrls: process.env.ORIGIN_WHITELIST_URLS.split(','),
+    whitelistUrls: process.env.ORIGIN_WHITELIST_URLS.split(',') || ['http://localhost:3000', 'http://localhost:8091'],
     environment: process.env.NODE_ENV,
     baseUrl: process.env.BASE_URL || 'localhost',
     port: process.env.PORT || 3000,
