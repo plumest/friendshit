@@ -14,7 +14,7 @@ These are environment variables required.
 |`PORT`|The exposed port by the server|`8090`|
 |`MONGO_LOCAL_CONN_URL`|The MongoDB database connection string|prefixed by `mongodb+srv://` or  `mongodb://`|
 |`JWT_SECRET`|The JWT secret|`secret`|
-|`ORIGIN_WHITELIST_URLS`|The whitelist origin that can |`['http://localhost:3000', 'http://localhost:8091']`|
+|`ORIGIN_WHITELIST_URLS`|The whitelist URLs that was allow to send HTTP methods to APIs|`['http://localhost:3000', 'http://localhost:8091']`|
 
 ## Project setup
 ```
