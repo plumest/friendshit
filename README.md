@@ -18,6 +18,13 @@ These are environment variables required.
 |---|---|
 |`VUE_APP_API_URL`|http://localhost:8090/api/v1/|
 
+### Documentation
+|Name|Link|
+|---|---|
+|API documentation| [API](https://docs.google.com/document/d/1TvWeuAdYOqgFyndiISjyO3UqmBptwbHjtO9ep6sF26A/edit?usp=sharing)|
+|Security checklist| [Checklist](https://docs.google.com/spreadsheets/d/1yqRJQAEUHMJ2s_n2BNB7uueQcS7uyAVMHUFetn2UYLw/edit?usp=sharing)|
+
+
 ## Project setup
 ```
 yarn install
